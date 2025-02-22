@@ -1,0 +1,51 @@
+@BASE_URL=http://localhost:3000/api
+@CONTENT_TYPE=application/json
+
+# @name CreateUser
+POST {{BASE_URL}}/users
+content-type: {{CONTENT_TYPE}}
+
+{
+    "name": "test",
+    "email": "admin@demo.vn",
+    "password": "demo789"
+}
+###
+
+
+# @name ListUsers
+GET {{BASE_URL}}/users
+content-type: {{CONTENT_TYPE}}
+
+
+###
+
+
+# @name GetUserById
+@USER_ID_PARAM=67b9c1a58390ec5002c24207
+GET {{BASE_URL}}/users/{{USER_ID_PARAM}}
+content-type: {{CONTENT_TYPE}}
+
+
+###
+
+
+# @name UpdateUserById
+@USER_ID_PARAM_UPDATE=67b9c1a58390ec5002c24207
+PATCH {{BASE_URL}}/users/{{USER_ID_PARAM_UPDATE}}
+content-type: {{CONTENT_TYPE}}
+
+{
+    "name": "test_update",
+    "email": "admin@demo.vn",
+    "password": "demo123"
+}
+
+
+###
+
+
+# @name DeleteUserById
+@USER_ID_PARAM_DELETE=67b9c1a58390ec5002c24207
+DELETE {{BASE_URL}}/users/{{USER_ID_PARAM_DELETE}}
+content-type: {{CONTENT_TYPE}}

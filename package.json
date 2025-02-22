@@ -1,0 +1,33 @@
+{
+  "name": "crude-server",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/src/main.js",
+    "dev": "ts-node-dev src/main.ts",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "http-status-codes": "^2.3.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.10.1",
+    "morgan": "^1.10.0",
+    "ts-node-dev": "^2.0.0",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/lodash": "^4.17.15",
+    "@types/node": "^22.13.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,13 @@
+.env
+node_modules
+/dist
+package-lock.json
+/logs
+yarn.lock
+.vscode
+*.pem
+deploy.sh
+deploy_prod.sh
+certs
+public
+backup
