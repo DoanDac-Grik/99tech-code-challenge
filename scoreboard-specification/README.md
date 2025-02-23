@@ -52,7 +52,7 @@ _Redis with zset is ideal for applications that require continuous leaderboard u
 
 ![high_level_design](./high_level_design.png)
 
-_For high availability and scalability, we use `Load Balancer` + `Auto Scaling Group`, also need read replicas or `Redis cluster` to meet these general requirements_
+_For high availability and scalability, we use `Load Balancer` + `Auto Scaling Group`, also need `Read replicas` or `Redis cluster` to meet these general requirements_
 
 ## 3. API specification
 
