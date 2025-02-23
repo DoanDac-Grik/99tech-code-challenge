@@ -53,6 +53,6 @@ export const setDefaultPaginationValue = (query: {
   if (!query.sort) {
     query.sort = DEFAULT_SORT_PAGINATION;
   }
-  console.log(query.page);
+
   return query;
 };

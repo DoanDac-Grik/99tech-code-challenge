@@ -19,7 +19,7 @@ class UserController {
 
   async list(req: TypedRequest<never, IListUsersQuery, never>, res: Response) {
     const query = setDefaultPaginationValue(req.query) as IListUsersQuery;
-    console.log(query);
+
     const result = await userService.list(query);
 
     return new SuccessResponse({

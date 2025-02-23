@@ -6,10 +6,13 @@ import {
   IUpdateUserBody,
 } from '../interfaces/user.interface';
 import User from '../models/user.model';
+import bcrypt from 'bcrypt';
 
 class UserService {
-  async create(payload: ICreateUserBody) {
-    const user = await User.findOne({ email: payload.email });
+  private saltRounds = 10;
+
+  async create(body: ICreateUserBody) {
+    const user = await User.findOne({ email: body.email });
 
     if (user) {
       throw new ErrorResponse({
@@ -18,12 +21,16 @@ class UserService {
       });
     }
 
+    const { password, ...rest } = body;
+    const hashedPassword = await bcrypt.hash(password, this.saltRounds);
+    const payload = { ...rest, password: hashedPassword };
+
     await User.create(payload);
   }
 
   async list(query: IListUsersQuery) {
     const filters: { name?: RegExp; email?: RegExp } = {};
-    console.log(query);
+
     if (query.name) {
       filters.name = new RegExp(query.name, 'i');
     }
@@ -31,7 +38,7 @@ class UserService {
       filters.email = new RegExp(query.email, 'i');
     }
 
-    const users = await User.find(filters)
+    const users = await User.find(filters, '-password')
       .skip((query.page - 1) * query.limit)
       .limit(query.limit);
 
@@ -44,7 +51,7 @@ class UserService {
   }
 
   async getById(id: string) {
-    const user = await User.findById(id);
+    const user = await User.findById(id, '-password');
 
     if (!user) {
       throw new ErrorResponse({
@@ -56,7 +63,7 @@ class UserService {
     return user;
   }
 
-  async updateById(id: string, payload: IUpdateUserBody) {
+  async updateById(id: string, body: IUpdateUserBody) {
     const user = await User.findById(id);
 
     if (!user) {
@@ -66,7 +73,16 @@ class UserService {
       });
     }
 
-    await User.findByIdAndUpdate(id, payload);
+    if (body.password) {
+      const { password, ...rest } = body;
+
+      const hashedPassword = await bcrypt.hash(password, this.saltRounds);
+      const payload = { ...rest, password: hashedPassword };
+
+      await User.findByIdAndUpdate(id, payload);
+    } else {
+      await User.findByIdAndUpdate(id, body);
+    }
   }
 
   async deleteById(id: string) {

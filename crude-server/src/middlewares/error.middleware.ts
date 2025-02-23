@@ -8,7 +8,6 @@ function errorMiddleware(
   res: any,
   _next: NextFunction
 ) {
-  console.log(err);
   if (err instanceof SyntaxError) {
     err = new ErrorResponse({
       status: StatusCodes.BAD_REQUEST,
